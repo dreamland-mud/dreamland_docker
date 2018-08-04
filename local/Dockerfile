@@ -25,8 +25,8 @@ git clone https://github.com/dreamland-mud/dreamland_world.git && \
 ln -s ${HOME}/dreamland_world ${HOME}/runtime/share/DL
 
 # Configure startup script to try and run every minute
-ENV CRON="*/1    *       *   *   *   (cd /home/dreamland/runtime && ./bin/startup-local 2>&1 > /dev/null)"
-RUN echo ${CRON} | crontab -
+RUN echo '*/1    *       *   *   *   (cd /home/dreamland/runtime && ./bin/startup-local 2>&1 >> /tmp/cron.log)'| crontab  -
+RUN cron
 
 # Enable external client connections
 EXPOSE 9000
