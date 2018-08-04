@@ -2,7 +2,7 @@ FROM ubuntu:xenial as dreamland
 
 # Install build and dev tools, and dependency libraries.
 RUN apt-get update
-RUN apt-get install -y git g++ gcc make automake libtool bison flex telnet cron
+RUN apt-get install -y git g++ gcc make automake libtool bison flex telnet cron vim
 RUN apt-get install -y libcrypto++-dev libjsoncpp-dev libdb5.3 libdb5.3-dev libdb5.3++ libdb5.3++-dev zlib1g zlib1g-dev libssl-dev
 
 # Setup home folder
@@ -24,12 +24,5 @@ RUN cd ${HOME} && \
 git clone https://github.com/dreamland-mud/dreamland_world.git && \
 ln -s ${HOME}/dreamland_world ${HOME}/runtime/share/DL
 
-# Configure startup script to try and run every minute
-RUN echo '*/1    *       *   *   *   (cd /home/dreamland/runtime && ./bin/startup-local 2>&1 >> /tmp/cron.log)'| crontab  -
-RUN cron
-
-# Enable external client connections
-EXPOSE 9000
-EXPOSE 9127
-EXPOSE 1234
-
+# Run DreamLand on startup, with logs in stdout.
+CMD cd /home/dreamland/runtime && ./bin/dreamland etc/dreamland.xml
