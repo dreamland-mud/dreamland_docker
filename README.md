@@ -28,6 +28,8 @@ docker build -t dreamland/local .
 ```bash
 docker run --name dreamland -p 8001:9001 -it dreamland\local
 ```
+Instead of mapping each port individually, you can use -P option, that will expose MUD ports 9001 (backdoor), 1234 (WebSocket) and 9000 (normal greeting) to the host machine. Note that normal 9000 port won't work until corresponding Fenia program is installed.
+
 * Connect to the game, user Kadm password KadmKadm. 
 ```bash
 telnet localhost 8001
