@@ -4,11 +4,12 @@ Dockerfile repository for maintaining DreamLand MUD Docker images.
 All these container images are published under dreamland username on the Docker Hub, at
 > https://hub.docker.com/r/dreamland/
 
-You can either download a ready-to-run image from Docker Hub (~2Gb), or build one yourself using Dockerfile in this repository.
-
-## Local DreamLand MUD instance for development
+## Local: DreamLand MUD instance for development
 
 This image contains a fully functioning game server for DreamLand MUD, with limited number of areas (zones). 
+Source code and objs files are also included, allowing to quickly modify and recompile required files.
+
+You can either download a ready-to-run dev image from Docker Hub (~2Gb), or build one yourself using Dockerfile in this repository.
 
 Steps used in Dockerfile to create the image:
 * This image is based on Ubuntu Xenial.
@@ -42,3 +43,30 @@ docker exec -it dreamland /bin/bash
 ```
 All MUD files are installed under /home/dreamland.
 
+To restart a stopped container and continue your work:
+```bash
+docker restart dreamland
+```
+
+
+### Stripped: DreamLand MUD instance for builders
+
+This image also contains a fully functioning game server for DreamLand MUD, with limited number of areas (zones). 
+It doesn't have any dev libraries or build tools installed; source code and objs are not included either.
+
+You can either download a ready-to-run dev image from Docker Hub (~800Mb), or build one yourself using Dockerfile in this repository.
+
+You need to have dreamland/local:latest already built locally, see previous section for instructions.
+
+Steps you need to build 'stripped' container locally:
+* Clone this repository and
+```bash
+cd stripped 
+docker build -t dreamland/stripped.
+```
+Everything else is as described in previous section. To run:
+```bash
+docker run --name dreamland -p 8001:9001 -it dreamland\stripped
+telnete localhost 8001
+```
+and so on.
