@@ -24,5 +24,10 @@ RUN cd ${HOME} && \
 git clone https://github.com/dreamland-mud/dreamland_world.git && \
 ln -s ${HOME}/dreamland_world ${HOME}/runtime/share/DL
 
+# Expose all MUD ports that listen to external connections.
+EXPOSE 9000
+EXPOSE 9001
+EXPOSE 1234
+
 # Run DreamLand on startup, with logs in stdout.
 CMD cd /home/dreamland/runtime && ./bin/dreamland etc/dreamland.xml
