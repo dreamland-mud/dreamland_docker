@@ -27,7 +27,7 @@ docker build -t dreamland/local .
 
 * Launch game server container, calling it 'dreamland'. Host port 8001 is going to be mapped to the game port 9001. 
 ```bash
-docker run --name dreamland -p 8001:9001 -it dreamland\local
+docker run --name dreamland -p 8001:9001 -it dreamland/local
 ```
 Instead of mapping each port individually, you can use -P option, that will expose MUD ports 9001 (backdoor), 1234 (WebSocket) and 9000 (normal greeting) to the host machine. Note that normal 9000 port won't work until corresponding Fenia program is installed.
 
@@ -49,7 +49,7 @@ docker restart dreamland
 ```
 
 
-### Stripped: DreamLand MUD instance for builders
+## Stripped: DreamLand MUD instance for builders
 
 This image also contains a fully functioning game server for DreamLand MUD, with limited number of areas (zones). 
 It doesn't have any dev libraries or build tools installed; source code and objs are not included either.
