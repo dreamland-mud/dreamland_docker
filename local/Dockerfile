@@ -1,10 +1,10 @@
-FROM ubuntu:xenial as dreamland
+FROM ubuntu:beaver as dreamland
 
 # Install build and dev tools, and dependency libraries.
 RUN apt-get update
 RUN apt-get update --fix-missing
 RUN apt-get install -y git g++ gcc make automake libtool bison flex telnet vim bzip2
-RUN apt-get install -y libcrypto++-dev libjsoncpp-dev libdb5.3 libdb5.3-dev libdb5.3++ libdb5.3++-dev zlib1g zlib1g-dev libssl-dev
+RUN apt-get install -y libcrypto++-dev libjsoncpp-dev libdb5.3 libdb5.3-dev libdb5.3++ libdb5.3++-dev zlib1g zlib1g-dev libssl-dev libfl-dev
 
 # Setup home folder
 ENV HOME=/home/dreamland
@@ -18,6 +18,7 @@ make -f Makefile.git && \
 mkdir ${HOME}/objs && \
 cd ${HOME}/objs && \
 ../dreamland_code/configure --prefix=${HOME}/runtime && \
+ls -la /home/dreamland/runtime/var/db/fenia && \
 make -j 8 && make install
 
 # Download and install configuration files and areas
