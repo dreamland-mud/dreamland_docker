@@ -1,4 +1,4 @@
-FROM ubuntu:beaver as dreamland
+FROM ubuntu:bionic as dreamland
 
 # Install build and dev tools, and dependency libraries.
 RUN apt-get update
