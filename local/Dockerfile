@@ -1,10 +1,11 @@
-FROM ubuntu:bionic as dreamland
+FROM ubuntu:focal as dreamland
 
 # Install build and dev tools, and dependency libraries.
 RUN apt-get update
 RUN apt-get update --fix-missing
 RUN apt-get install -y git g++ gcc make automake libtool bison flex telnet db-util bzip2
 RUN apt-get install -y libcrypto++-dev libjsoncpp-dev libdb5.3 libdb5.3-dev libdb5.3++ libdb5.3++-dev zlib1g zlib1g-dev libssl-dev libfl-dev
+RUN apt-get install -y locales && locale-gen ru_RU.KOI8-R && update-locale
 
 # Setup home folder
 ENV HOME=/home/dreamland
@@ -17,7 +18,7 @@ cd dreamland_code && \
 make -f Makefile.git && \
 mkdir ${HOME}/objs && \
 cd ${HOME}/objs && \
-../dreamland_code/configure --prefix=${HOME}/runtime && \
+../dreamland_code/configure --prefix=${HOME}/runtime --disable-dependency-tracking && \
 ls -la /home/dreamland/runtime/var/db/fenia && \
 make -j 8 && make install
 
